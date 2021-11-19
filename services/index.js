@@ -152,3 +152,57 @@ export const getComments = async (slug) => {
 
   return result.comments;
 };
+
+export const getFeaturedPosts = async () => {
+  const query = gql`
+    query getFeaturedPosts() {
+      posts(where: { featured: true }) {
+        author {
+          bio
+          name
+          id
+          photo {
+            url
+          }
+        }
+        featuredimage {
+          url
+        }
+        title
+        slug
+        createdAt
+      }
+    }
+  `;
+
+  const result = await request(graphqlAPI, query);
+
+  return result.posts;
+};
+
+// export const getCategoryPosts = async () => {
+//   const query = gql`
+//     query getCategoryPost() {
+//       posts(where: { categories: $slug }) {
+//         author {
+//           bio
+//           name
+//           id
+//           photo {
+//             url
+//           }
+//         }
+//         featuredimage {
+//           url
+//         }
+//         title
+//         slug
+//         createdAt
+//       }
+//     }
+//   `;
+
+//   const result = await request(graphqlAPI, query);
+
+//   return result.posts;
+// };
